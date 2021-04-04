@@ -1,0 +1,62 @@
+[
+  {
+    "name": "task1",
+    "checked": false,
+    "date": {
+      "dayOfWeek": 0,
+      "day": 3,
+      "month": 6,
+      "year": 2007
+    }
+  },
+  {
+    "name": "task2",
+    "checked": true,
+    "date": {
+      "dayOfWeek": 1,
+      "day": 5,
+      "month": 6,
+      "year": 2013
+    }
+  },
+  {
+    "name": "task3",
+    "checked": false,
+    "date": {
+      "dayOfWeek": 1,
+      "day": 5,
+      "month": 6,
+      "year": 2011
+    }
+  },
+  {
+    "name": "task4",
+    "checked": true,
+    "date": {
+      "dayOfWeek": 3,
+      "day": 5,
+      "month": 6,
+      "year": 2015
+    }
+  },
+  {
+    "name": "task5",
+    "checked": true,
+    "date": {
+      "dayOfWeek": 3,
+      "day": 5,
+      "month": 6,
+      "year": 2015
+    }
+  },
+  {
+    "name": "task6",
+    "checked": true,
+    "date": {
+      "dayOfWeek": 3,
+      "day": 5,
+      "month": 6,
+      "year": 2015
+    }
+  }
+]

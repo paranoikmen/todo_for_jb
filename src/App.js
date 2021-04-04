@@ -1,15 +1,27 @@
 import './App.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Home from "./Components/Home";
+import CompletedTask from "./Components/CompletedTask";
+import {useLocalStorage} from "react-use";
+import UncompletedTask from "./Components/UncompletedTask";
+import Statistic from "./Components/Statistic";
 
 function App() {
+    const [valueLocalStorage, setValueLocalStorage] = useLocalStorage('tasks', []);
+
     return (
         <BrowserRouter>
             <Switch>
-                <Route path='/' exact component={Home} />
-                <Route path='/home' component={Home}/>
-                <Route path='/completedtask' component={Home}/>
-                <Route path='/uncomletedtask' component={Home}/>
+                <Route exact path='/'><Home valueLocalStorage={valueLocalStorage} setValueLocalStorage={setValueLocalStorage}/></Route>
+                <Route path='/home'><Home valueLocalStorage={valueLocalStorage} setValueLocalStorage={setValueLocalStorage}/></Route>
+                <Route path='/completedtask'>
+                    <CompletedTask inputTask={valueLocalStorage}/>
+                    <Statistic inputData={valueLocalStorage} showTask={"completed"}/>
+                </Route>
+                <Route path='/uncompletedtask'>
+                    <UncompletedTask inputTask={valueLocalStorage}/>
+                    <Statistic inputData={valueLocalStorage} showTask={"uncompleted"}/>
+                </Route>\
             </Switch>
         </BrowserRouter>
     );

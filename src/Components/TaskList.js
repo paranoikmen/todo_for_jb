@@ -1,15 +1,13 @@
-import React from 'react';
+import React from "react";
 import Task from "./Task";
 
-export default function TasksList({tasks, toggleTask}) {
+function TaskList({inputTasks, toggleTask}) {
     return(
-        <div >
-            {
-                tasks.map(task =>(
-                    <Task task={task} toggleTask={toggleTask} key={task.id} />
-                    ))
-            }
+        <div>
+            <ul>{inputTasks.map((task, index) =>
+                (<Task index={index} toggleTask={toggleTask} task={task}/>))}</ul>
         </div>
     )
 }
 
+export default TaskList;
