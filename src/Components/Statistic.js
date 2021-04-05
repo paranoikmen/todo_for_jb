@@ -1,10 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 import {Bar, BarChart, CartesianGrid, XAxis, YAxis, Legend, Tooltip} from "recharts";
 import DatePicker from "react-datepicker";
 import {Paper} from "@material-ui/core";
 
 
 const Statistic = ({inputData, showTask}) => {
+    const [startDate, setStartDate] = useState(new Date())
+    const [endDate, setEndDate] = useState(new Date())
+
+    const dateFilter = (statistic) => {
+        let tmpStartDate;
+        for (let i = 0; i < inputData.length; i++) {
+            if(inputData[i].date.year > inputData[i+1].date.year) {
+                if(inputData[i].date.month > inputData[i+1].date.month) {
+                    if(inputData[i].date.day > inputData[i+1].date.day) {
+                        return "abc";
+                    }
+                }
+            }
+        }
+    }
 
     const StatisticForDays = [
         {
@@ -93,7 +108,15 @@ const Statistic = ({inputData, showTask}) => {
     }
 
     return <div>
-        <Paper elevation={7} style={{margin: "15px", padding: "10px"}}>
+        <Paper elevation={7} style={{textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center",
+            alignItems: "center", margin: "15px", padding: "10px"}}>
+            <div style={{display: "flex"}}>
+                От:
+                <DatePicker selected={startDate} dateFormat="dd/MM/yyyy" onChange={date => setStartDate(date)}
+                style={{marginLeft: "10px"}}/>
+                До:
+                <DatePicker selected={endDate} dateFormat="dd/MM/yyyy" onChange={date => setEndDate(date)}/>
+            </div>
             Статистика задач:
             <BarChart width={700} height={300} data={calculateStatistic()}>
                 <CartesianGrid strokeDasharray="3 3"/>

@@ -73,22 +73,9 @@ const Home = ({valueLocalStorage, setValueLocalStorage}) => {
     }
 
     return (
-        <div style={{textAlign: "center"}}>
-            <Paper elevation={7} style={{display: "flex", justifyContent: "center", margin: "10px", padding: "7px"}}>
-                <TextField
-                    id="inputTask"
-                    label="Введите задачу..."
-                    variant="outlined"
-                    name="inputTask"
-                    value={valueInput}
-                    onChange={event => {setValueInput(event.target.value)}}
-                />
-                <div>
-                    <DatePicker selected={startDate} dateFormat="dd/MM/yyyy" onChange={date => setStartDate(date)}/>
-                    <Button variant="contained" color="primary" onClick={handleFormSubmit}>Добавить задачу</Button>
+        <div style={{}}>
+            <Paper elevation={7} style={{margin: "10px", padding: "7px"}}>
 
-                </div>
-                <div>
                     <input
                         id="contained-button-file"
                         multiple
@@ -99,9 +86,25 @@ const Home = ({valueLocalStorage, setValueLocalStorage}) => {
                     <label htmlFor="contained-button-file">
                         <Button variant="contained" color="primary" component="span">Загрузить задачи</Button>
                     </label>
+
+                <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <TextField
+                        id="inputTask"
+                        label="Введите задачу..."
+                        variant="outlined"
+                        name="inputTask"
+                        style={{width: "500px"}}
+                        value={valueInput}
+                        onChange={event => {setValueInput(event.target.value)}}
+                    />
+                    <div>
+                        {/*<DatePicker selected={startDate} dateFormat="dd/MM/yyyy" onChange={date => setStartDate(date)}/>*/}
+                        <Button variant="contained" color="primary" onClick={handleFormSubmit} style={{marginLeft: "10px"}}>Добавить задачу</Button>
+                    </div>
                 </div>
+
             </Paper>
-            <Paper elevation={7} style={{justifyContent: "center", margin: "10px", padding: "7px"}}>
+            <Paper elevation={7} style={{textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", margin: "10px", padding: "7px"}}>
                 <ButtonGroup aria-label="outlined button group">
                     <Button
                         color={showUncompletedTasks == "none" ? "secondary" : "primary"}

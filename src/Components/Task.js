@@ -4,31 +4,29 @@ import {Grid, Paper} from "@material-ui/core";
 
 function Task({index, toggleTask, task}) {
     const showToggleTask = () => {
-        if (!task.checked) {
-            return <div> Х</div>
-        } else {
-            return <div> ✓</div>
+        if (task.checked) {
+            return <div>✓</div>
         }
     }
 
     return (
-        <div>
-            <Grid
-                container
-                justify="center"
-                alignItems="center"
-                style={{padding: "10px"}}
-                spacing={3}
-            >
-                <Paper
-                    key={index}
-                    onClick={() => {
-                        toggleTask(index)
-                    }}
-                >{task.name}</Paper>
-                <Paper>{showToggleTask()}</Paper>
-                <Paper>{task.date.day}/{task.date.month}/{task.date.year}</Paper>
-            </Grid>
+        <div style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "10px",
+            textAlign: "center"
+        }}>
+            <Paper style={{marginRight: "10px", height: "40px", width: "40px"}}>{showToggleTask()}</Paper>
+            <Paper
+                key={index}
+                onClick={() => {
+                    toggleTask(index)
+                }}
+                style={{height: "40px", width: "200px"}}
+            >{task.name}</Paper>
+            <Paper style={{marginLeft: "10px", height: "40px"}}>{task.date.day}/{task.date.month}/{task.date.year}</Paper>
         </div>
     )
 }
