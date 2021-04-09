@@ -54,10 +54,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### /
+### home page "/"
 ![image](https://user-images.githubusercontent.com/64567995/114243168-ce488200-9994-11eb-95aa-e2d17539a68f.png)
 
-### /completedtask /uncompletedtask
+### other page "/completedtask" or "/uncompletedtask"
 ![image](https://user-images.githubusercontent.com/64567995/114243285-fafc9980-9994-11eb-95de-783abb386f18.png)
 
 
