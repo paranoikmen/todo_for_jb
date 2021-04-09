@@ -1,22 +1,17 @@
 import React from "react";
-import {Grid, Paper} from "@material-ui/core";
+import "./style.css"
+import Task from "./Task";
 
 function UncompletedTask({inputTask}) {
-    return(
-        <div>
-            Невыполненные задачи:
-            <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
-            >
-                <ul>{inputTask.map((value, index) =>
-                    <Paper key={index} style={value.checked ? {display: 'none'} : null}>{value.name}</Paper>)}
-                </ul>
-            </Grid>
-        </div>
-    )
+    return <ul>
+        { inputTask.map
+            ((task, index) =>
+                <li key={index} style={task.checked ? {display: 'none'} : null} className={"task_paper"}>
+                    <Task task={task} index={index}/>
+                </li>
+            )}
+    </ul>
+
 }
 
 export default UncompletedTask;

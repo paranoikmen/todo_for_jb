@@ -2,17 +2,18 @@ import React, {useState} from "react";
 import CompletedTask from './CompletedTask'
 import TaskList from "./TaskList";
 import UncompletedTask from "./UncompletedTask";
-import DatePicker from "react-datepicker";
-import Statistic from "./Statistic";
 import {Button, ButtonGroup, Paper, TextField} from "@material-ui/core";
+import "./style.css"
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import IconButton from '@material-ui/core/IconButton';
 
 const Home = ({valueLocalStorage, setValueLocalStorage}) => {
     const [valueInput, setValueInput] = useState()
     const [selectedFile, setSelectedFile] = useState();
     const [startDate, setStartDate] = useState(new Date());
-    const [showTasks, setShow] = useState();
-    const [showCompletedTasks, setShowCompleted] = useState();
-    const [showUncompletedTasks, setShowUncompleted] = useState();
+    const [showTasks, setShowAllTasks] = useState();
+    const [showCompletedTasks, setShowCompleted] = useState("none");
+    const [showUncompletedTasks, setShowUncompleted] = useState("none");
 
     const handleFormSubmit = () => {
         const name = valueInput
@@ -72,71 +73,86 @@ const Home = ({valueLocalStorage, setValueLocalStorage}) => {
 
     }
 
+    const deleteTask = (index) => {
+        const tmp = [...valueLocalStorage]
+        tmp.splice(index, 1)
+        setValueLocalStorage(tmp)
+    }
+
     return (
-        <div style={{}}>
-            <Paper elevation={7} style={{margin: "10px", padding: "7px"}}>
-
-                    <input
-                        id="contained-button-file"
-                        multiple
-                        type="file"
-                        style={{display: "none"}}
-                        onChange={changeHandler}
-                    />
-                    <label htmlFor="contained-button-file">
-                        <Button variant="contained" color="primary" component="span">Загрузить задачи</Button>
-                    </label>
-
-                <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                    <TextField
-                        id="inputTask"
-                        label="Введите задачу..."
-                        variant="outlined"
-                        name="inputTask"
-                        style={{width: "500px"}}
-                        value={valueInput}
-                        onChange={event => {setValueInput(event.target.value)}}
-                    />
-                    <div>
-                        {/*<DatePicker selected={startDate} dateFormat="dd/MM/yyyy" onChange={date => setStartDate(date)}/>*/}
-                        <Button variant="contained" color="primary" onClick={handleFormSubmit} style={{marginLeft: "10px"}}>Добавить задачу</Button>
-                    </div>
-                </div>
-
+        <div className={"main"}>
+            <Paper elevation={3} className={"paper head_paper"}>
+                <TextField
+                    id="inputTask"
+                    label="Введите задачу..."
+                    variant="outlined"
+                    name="inputTask"
+                    style={{width: "100%"}}
+                    value={valueInput}
+                    onChange={event => {setValueInput(event.target.value)}}
+                />
+                <Button variant="contained" color="primary" onClick={handleFormSubmit} style={{marginLeft: "10px", width: "250px"}}>
+                    Добавить задачу
+                </Button>
+                <input
+                    id="contained-button-file"
+                    multiple
+                    type="file"
+                    style={{display: "none"}}
+                    onChange={changeHandler}
+                />
+                <label htmlFor="contained-button-file" style={{margin: "0"}}>
+                    <IconButton style={{marginLeft: "10px"}} color="primary" component="span"><CloudUploadIcon/></IconButton>
+                </label>
             </Paper>
-            <Paper elevation={7} style={{textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", margin: "10px", padding: "7px"}}>
+            <Paper elevation={3} className={"paper tasks_paper"}>
                 <ButtonGroup aria-label="outlined button group">
                     <Button
-                        color={showUncompletedTasks == "none" ? "secondary" : "primary"}
-                        onClick={event => {
-                            setShowUncompleted(showUncompletedTasks == null ? "none" : null)
+                        color={showTasks == "none" ? "secondary" : "primary"}
+                        onClick={() => {
+                            setShowCompleted("none")
+                            setShowUncompleted("none")
+                            setShowAllTasks(null)
                         }}
-                    >Незавершенные</Button>
+                    >
+                        Все
+                    </Button>
                     <Button
                         color={showCompletedTasks == "none" ? "secondary" : "primary"}
-                        onClick={event => {
-                            setShowCompleted(showCompletedTasks == null ? "none" : null)
+                        onClick={() => {
+                            setShowAllTasks("none")
+                            setShowUncompleted("none")
+                            setShowCompleted(null)
                         }}
-                    >Завершенные</Button>
+                    >
+                        Выполненные
+                    </Button>
                     <Button
-                        color={showTasks == "none" ? "secondary" : "primary"}
-                        onClick={event => {
-                            setShow(showTasks == null ? "none" : null)
+                        color={showUncompletedTasks == "none" ? "secondary" : "primary"}
+                        onClick={() => {
+                            setShowAllTasks("none")
+                            setShowCompleted("none")
+                            setShowUncompleted(null)
                         }}
-                    >Все</Button>
+                    >
+                        Невыполненные
+                    </Button>
                 </ButtonGroup>
-                <div style={{display: showTasks}}>
-                    Все задачи:
-                    <TaskList inputTasks={valueLocalStorage} toggleTask={toggleTask}/>
+                <div style={{display: showTasks, marginTop: "10px", width: "100%"}}>
+                    <p>Все задачи:</p>
+                    <TaskList inputTasks={valueLocalStorage} toggleTask={toggleTask} deleteTask={deleteTask}/>
                 </div>
-                <div style={{display: showCompletedTasks}}>
+                <div style={{display: showCompletedTasks, marginTop: "10px", width: "100%"}}>
+                    <p>Выполненные задачи:</p>
                     <CompletedTask inputTask={valueLocalStorage}/>
+                    <Button variant="contained" color="primary" href={"/completedtask"} style={{marginLeft: "10px", width: "250px"}}>Перейти к статистике</Button>
                 </div>
-                <div style={{display: showUncompletedTasks}}>
+                <div style={{display: showUncompletedTasks, marginTop: "10px", width: "100%"}}>
+                    <p>Невыполненные задачи:</p>
                     <UncompletedTask inputTask={valueLocalStorage}/>
+                    <Button variant="contained" color="primary" href={"/uncompletedtask"} style={{marginLeft: "10px", width: "250px"}}>Перейти к статистике</Button>
                 </div>
             </Paper>
-            <Statistic inputData={valueLocalStorage}></Statistic>
         </div>
     )
 }

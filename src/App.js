@@ -12,8 +12,10 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path='/'><Home valueLocalStorage={valueLocalStorage} setValueLocalStorage={setValueLocalStorage}/></Route>
-                <Route path='/home'><Home valueLocalStorage={valueLocalStorage} setValueLocalStorage={setValueLocalStorage}/></Route>
+                <Route exact path='/'>
+                    <Home valueLocalStorage={valueLocalStorage} setValueLocalStorage={setValueLocalStorage}/>
+                    <Statistic inputData={valueLocalStorage}/>
+                </Route>
                 <Route path='/completedtask'>
                     <CompletedTask inputTask={valueLocalStorage}/>
                     <Statistic inputData={valueLocalStorage} showTask={"completed"}/>
